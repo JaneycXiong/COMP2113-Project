@@ -8,48 +8,63 @@ XIONG Yingchao 3035446796
 
 ## Game Description
 
-You enter an amazing world. There are three levels in the game. You can go to the next level after playing the zuma game.
-You start from level 1. Use the w(up) a(left) s(down) d(right) keys to move the role, it can pick keys ('K'), use keys to open doors ('^'), add blood using '+', and fight with monsters. There are bat 'B', wizzard 'E', green head monster 'G', red head monster 'R', skeleton 'S'.
-When you fight with monsters, your blood decreases. If you defeat the monster, you can collect corresponding no. of coins. If you die (blood < 0 after fight with monsters), you can decide to play again or not.
-When you reach stairs, you will enter zuma game. To play zuma game insert a ball at once into a row of balls, any more than 3 balls together will be deleted. When there is no ball left, you win and go to the higher level.
-In the 3rd level, if you reach 'E', you can decide whether to end the game. If 'y', you achieved final success, and if 'n', game continues. 
+You are in an amazing world.
+There are 3 levels in total. You start from level 1.
+Your goal is to get as many coins as possible.
+
+'~' indicate your current location on the map.
+Use 'w' (up) 'a' (left) 's' (down) 'd' (right) keys to move.
+'#' is wall which cannot go through. Empty space is where you can go.
+You can pick keys ('K'), use keys to open doors ('^'), add blood using '+'.
+
+You can decide whether to fight with a monster.
+When you fight with monsters, your blood decrease.
+If you defeat the monster, you can collect corresponding no. of coins.
+If your blood <= blood of monster, you die and lost the game.
+Blood and coins of different monsters are different.
+
+When you reach stairs '=', play zuma game. Then go to the higher level.
+Zuma game: You first indicate how many balls in a row you want on the table.
+The program will generate a random row of balls.
+You then insert a ball of a color in a position. Any 3 balls together with the same color will be deleted.
+You win zuma game when there is no ball on the table.
+The game will calculate you points based on how many balls you want, how many balls you inserted and time taken.
+If you get points > 0, you can get 2 coins in the main game.
+
+In level 3, if you reach 'F', you can decide whether to finish the game.
+If 'y', you achieved final success.
+During the main game, you may press q to quit the game, game status will be stored.
+When you excute the program again, you can continue the game or restart.
+You may also press e to end the game, and you lost the game.
 
 
 ## Features to implement
 
-1. Generation of random game sets or events
+#### 1. Generation of random game sets or events
 
     In the zuma game and, I use time(NULL) as seed to randomly generate a row of balls with different color and order, so that the player can have different rows each time.
     
-2. Data structures for storing game status
+#### 2. Data structures for storing game status
 
     Arrays, structures and linked list are used.
     In main game, I use 2-dimentional array to store the current game status (which is the map) of 3 different levels; we can access a specific location using coordinates (i, j).
     In the main game, I use structure to define data type to store the status of player and information of monsters.
     In the zuma game, we use linked list to store the row of balls left on the table; a ball point to the ball on the next, therefore, we can change the order and number of balls whatever we want and access the color sequentially.
 
-3. Dynamic memory management
+#### 3. Dynamic memory management
 
     In the zuma game, we use linked list to store the game status. Since it can point to any other momory location, and we can know the order of a sequence of balls and can insert or delete any several balls into or from it.
     
-4. File input/output (e.g., for loading/saving game status)
+#### 4. File input/output (e.g., for loading/saving game status)
 
-    In the main.cpp, 
-    The game first output rules of the game.
-    Input: direction, using 'a' 'd' 'w' 's' to represent
-    After each direction indicated by the player, status of map and role will change, the function will print the current map and current information of role (blood, bluekeys, and coins)
-    If the player meet a monster, the game will ask whether to fight with it or not. Player then input 'y' or 'n'. After the battle, the game will print result (win or die). If win, game continues. If lose, game ask whether to play again. Player then input 'y' or 'n', if 'y', start game all over again; if 'n', game ends.
-    When player meet'E', he also input 'y' or 'n' to indicate whether quit the game. If quit, the game then print "end of games".
+   In the main game, you may choose to quit the game. The game status (including level, role information, location on the map, map setting) will be stored.
+   If you excute the program again, you may choose to start the game from start. The main.cpp will use information stored in gameoriginal.txt, which is the initial setting of the game.
+   You may also choose to continue the game. Then main.cpp will use information stored in gamestatus.txt, which contains the game status from your last excution.
+   If you choose to continue the game when you play it in you first time, errors will be generated.
    
-    In the zuma.cpp,
-    The game first output rules of the game.
-    The first input is how many balls you want for a row
-    Then player input 'Y' to start the game. The game will print the original randomly generated row of balls,
-    Then user input the color and position to insert a ball. Then game output the row of balls left on the table after insertation and deletion (if applicable).
-    When there is no balls left of the table, game print how many points and coins the player get from zuma game.
-    
-5. Program codes in multiple files
+#### 5. Program codes in multiple files
     There are 2 major files: main.cpp and zuma.cpp, zuma.cpp is the main game, player can fight with monsters and collect coins, and go to a higher level after playing the zuma game. When the player goes to the stairs on the map, function in zuma.cpp will be called, and the player will play zuma game; after calling the function, flow of control goes back to main.cpp's main function, and the player goes to the next level.
+    gameoriginal.txt is used to store the original setting of the game. If the player quit the game, gamestatus.txt will be created to store game status. And player can continue the game when he excute the program again.
 
 
 ## Compilation
